@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import http from 'http'
 import mongoose from "mongoose"
 import cors from "cors"
+import authRoutes from "./routes/auth.js"
 
 const app = express()
 dotenv.config()
@@ -26,7 +27,7 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("DB connection established.."))
   .catch((error) => console.log("Error in connecting mongoDB:", error));
 
-console.log("Mongo URI:", process.env.MONGODB_URI);
+app.use('/api/auth', authRoutes)
 
 io.on('connection', (socket)=>{
     console.log('A user connected');
