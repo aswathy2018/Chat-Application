@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css'
-import { BrowserRouter, Navigate, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 //Components and pages
 import Signup from './pages/Signup'
@@ -11,21 +11,25 @@ import CreateConversation from './components/CreateConversation'
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || '')
+
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         {
-          !token?(
+          !token ? (
             <>
-            <Route path='/signup' element={<Signup/>}/>
-            <Route path='/login' element={<Login/>}/>
-            <Route path='*' element={<Navigate to='/login'/>}/>
+              <Route path='/signup' element={<Signup />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='*' element={<Navigate to='/login' />} />
             </>
-          ):(
-            <Route path='/create-conversation' element={<CreateConversation/>}/>
+          ) : (
+            <Route
+              path='/create-conversation'
+              element={<CreateConversation />}
+            />
           )
         }
       </Routes>
-    </Router>
+    </BrowserRouter>
   )
 }
